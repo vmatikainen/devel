@@ -338,6 +338,9 @@ void PostgreChartProvider::initializeSettings(){
         settings->setSetting("Host", "localhost");
         settings->setSetting("DBName", "none");
     }
+
+    // NOTE hack to correct dbname
+    settings->setSetting("DBName", "chart57");
 }
 
 QString PostgreChartProvider::getName(){
