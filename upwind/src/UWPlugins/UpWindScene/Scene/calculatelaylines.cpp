@@ -7,6 +7,7 @@ CalculateLaylines::CalculateLaylines()
 void CalculateLaylines::openPostgreConnection(){
     qDebug() << Q_FUNC_INFO;
     conn = PQconnectdb("hostaddr = '192.168.56.101' port = '5432' dbname = 'chart57' user = 'postgres' password = 'upwind'");
+//    conn = PQconnectdb("hostaddr = '127.0.0.1' port = '5432' dbname = 'chart57' user = 'postgres' password = 'upwind'");
     qDebug() << "Connection ok!";
     if (PQstatus(conn) != CONNECTION_OK){
         qDebug() << "Connection not ok: " << PQerrorMessage(conn);
@@ -72,13 +73,13 @@ QVector<QPointF> CalculateLaylines::startCalc(QPolygonF routepoints, QPointF sta
     for(int i = 0; i < rightpath.size(); i++){
         layLines.append(rightpath.at(i));
     }
-    qDebug() << "ready size after rightpath" << ready.size();
+//    qDebug() << "ready size after rightpath" << ready.size();
     for(int i = 0; i < leftpath.size(); i++){
         layLines.append(leftpath.at(i));
     }
-    qDebug() << "ready size after leftpath: " << ready.size();
+//    qDebug() << "ready size after leftpath: " << ready.size();
 //    emit finished();
-    return ready;
+//    return ready;
 
     return layLines;
 }
@@ -744,6 +745,7 @@ QPointF CalculateLaylines::getNextPoint( const QVector<QPointF> &route, const QP
 
             triangle << boatPos;
             triangle << route.at( i);
+            // FIXME offset by one crash here
             triangle << route.at( i + 1);
 
             obs_r = checkIntersection( "obstacles_r", triangle, triangle );
